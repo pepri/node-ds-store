@@ -34,14 +34,21 @@ Helper.prototype.setWindowSize = function (w, h) {
   this.opts.window.height = h + 22;
 };
 
+Helper.prototype.setVolumeName = function (name) {
+  this.opts.volumeName = name;
+};
+
+Helper.prototype.setVolumePath = function (path) {
+  this.opts.volumePath = path;
+};
+
 Helper.prototype.vSrn = function (value) {
   assert(value === 0 || value === 1);
   this.file.push(Entry.construct('.', 'vSrn', { value: value }));
 };
 
 Helper.prototype.write = function (path, cb) {
-
-  var rawAlias = alias.create(this.opts.backgroundPath);
+  var rawAlias = alias.create(this.opts.backgroundPath, this.opts.volumeName, this.opts.volumePath);
 
   this.file.push(Entry.construct('.', 'bwsp', this.opts.window));
   this.file.push(Entry.construct('.', 'icvp', { iconSize: this.opts.iconSize, rawAlias: rawAlias }));
